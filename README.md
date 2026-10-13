@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Kenya Job Platform
 
 A public Kenyan job board with a personal application tracker and a documented REST API.
@@ -94,3 +95,6 @@ publishes them. Check each provider's country coverage and terms of use before r
 ```bash
 make test
 ```
+=======
+# kenyan-job-plartforms
+>>>>>>> origin/main
