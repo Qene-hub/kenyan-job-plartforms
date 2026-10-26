@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My applications | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+  <div class="container">
+    <h1>My applications</h1>
+    <p>Track every application from Applied to Offer, with notes and follow-up dates.</p>
+  </div>
+</section>
+
+<div class="container dash">
+  <div class="tabs" id="status-tabs" role="toolbar" aria-label="Filter by status"></div>
+
+  <div class="app-list" id="applications-list" aria-live="polite"></div>
+
+  <div class="empty-state" id="applications-empty" hidden>
+    <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+    <h3 data-empty-title>No applications yet</h3>
+    <p data-empty-text>Open any job and choose Track application to add it here.</p>
+    <a class="btn btn--primary" href="{% url 'web:job-list' %}">Find jobs</a>
+  </div>
+
+  <div class="empty-state empty-state--error" id="applications-error" hidden>
+    <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></span>
+    <h3>We could not load your applications</h3>
+    <p data-error-text>Something went wrong.</p>
+    <button type="button" class="btn btn--primary" data-action="retry">Try again</button>
+  </div>
+
+  {% include "components/pagination.html" %}
+</div>
+
+<dialog class="modal" id="notes-dialog" aria-labelledby="notes-title">
+  <div class="modal__head">
+    <div>
+      <h2 id="notes-title">Notes</h2>
+      <p class="modal__sub" data-notes-title></p>
+    </div>
+    <button type="button" class="icon-btn" data-close-dialog aria-label="Close notes">
+      <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+    </button>
+  </div>
+  <div class="modal__body">
+    <ul class="notes-list" id="notes-list"></ul>
+    <form id="note-form" novalidate>
+      <div class="form-alert" data-form-error hidden></div>
+      <div class="form-group">
+        <label class="form-label" for="note-body">Add a note</label>
+        <textarea class="form-control" id="note-body" name="body" maxlength="5000" placeholder="Interview prep, contacts, questions to ask..."></textarea>
+        <p class="form-error" data-error-for="body"></p>
+      </div>
+      <button class="btn btn--primary" type="submit">Add note</button>
+    </form>
+  </div>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/tracker.js' %}"></script>
+<script>Tracker.initApplications();</script>
+{% endblock %}

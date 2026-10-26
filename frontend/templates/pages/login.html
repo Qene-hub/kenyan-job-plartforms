@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Log in | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <aside class="auth-visual">
+    <div class="auth-visual__inner">
+      <h2>Welcome back</h2>
+      <p>Pick up your job search where you left off.</p>
+      <ul class="auth-points">
+        <li><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg> Your saved jobs, ready to review</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg> Every application and its status</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-bell"></use></svg> Alerts for the jobs you care about</li>
+      </ul>
+    </div>
+  </aside>
+
+  <section class="auth-panel">
+    <div class="auth-card">
+      <h1>Log in</h1>
+      <p class="auth-card__sub">Use your username or your email address.</p>
+
+      <form id="login-form" class="auth-form" novalidate>
+        <div class="form-alert" data-form-error hidden></div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-username">Username or email</label>
+          <input class="form-control" id="login-username" name="username" type="text" autocomplete="username" required>
+          <p class="form-error" data-error-for="username"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="input-group">
+            <input class="form-control" id="login-password" name="password" type="password" autocomplete="current-password" required>
+            <button type="button" class="input-group__btn" data-toggle-password>Show</button>
+          </div>
+          <p class="form-error" data-error-for="password"></p>
+        </div>
+
+        <button class="btn btn--primary btn--lg btn--block" type="submit">Log in</button>
+      </form>
+
+      <p class="auth-card__switch">New here? <a href="{% url 'web:register' %}">Create a free account</a></p>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>Auth.initLoginPage();</script>
+{% endblock %}

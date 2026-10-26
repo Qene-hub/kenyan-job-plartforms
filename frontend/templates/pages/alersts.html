@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Job alerts | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+  <div class="container">
+    <h1>Job alerts</h1>
+    <p>Save a search and choose how often you would like to hear about new matching jobs.</p>
+  </div>
+</section>
+
+<div class="container dash">
+  <div class="alerts-layout">
+    <section class="card panel">
+      <header class="panel__head"><h2>Create an alert</h2></header>
+      <form id="alert-form" novalidate>
+        <div class="form-alert" data-form-error hidden></div>
+
+        <div class="form-group">
+          <label class="form-label" for="alert-name">Alert name</label>
+          <input class="form-control" id="alert-name" name="name" type="text" maxlength="100" placeholder="e.g. Python jobs in Nairobi" required>
+          <p class="form-error" data-error-for="name"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="alert-query">Keywords</label>
+          <input class="form-control" id="alert-query" name="query" type="text" maxlength="200" placeholder="Job title, skill or company">
+          <p class="form-error" data-error-for="query"></p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="alert-county">County</label>
+            <select class="form-control" id="alert-county" name="county"><option value="">Any county</option></select>
+            <p class="form-error" data-error-for="county"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="alert-job-type">Job type</label>
+            <select class="form-control" id="alert-job-type" name="job_type"><option value="">Any type</option></select>
+            <p class="form-error" data-error-for="job_type"></p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="alert-work-mode">Work mode</label>
+            <select class="form-control" id="alert-work-mode" name="work_mode"><option value="">Any mode</option></select>
+            <p class="form-error" data-error-for="work_mode"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="alert-level">Experience level</label>
+            <select class="form-control" id="alert-level" name="experience_level"><option value="">Any level</option></select>
+            <p class="form-error" data-error-for="experience_level"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="alert-skills">Skills</label>
+          <input class="form-control" id="alert-skills" name="skills" type="text" placeholder="Python, Django, SQL">
+          <p class="form-hint">Separate skills with commas. A job matches if it lists any of them.</p>
+          <p class="form-error" data-error-for="skills"></p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="alert-salary">Minimum salary (KES)</label>
+            <input class="form-control" id="alert-salary" name="min_salary" type="number" min="0" step="1000" placeholder="e.g. 50000">
+            <p class="form-error" data-error-for="min_salary"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="alert-frequency">How often</label>
+            <select class="form-control" id="alert-frequency" name="frequency">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+            </select>
+            <p class="form-error" data-error-for="frequency"></p>
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--block" type="submit">Create alert</button>
+      </form>
+    </section>
+
+    <section>
+      <h2 class="alerts-title">Your alerts</h2>
+      <div class="alert-list" id="alerts-list" aria-live="polite"></div>
+
+      <div class="empty-state" id="alerts-empty" hidden>
+        <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-bell"></use></svg></span>
+        <h3>No alerts yet</h3>
+        <p>Create your first alert with the form.</p>
+      </div>
+
+      <div class="empty-state empty-state--error" id="alerts-error" hidden>
+        <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></span>
+        <h3>We could not load your alerts</h3>
+        <p data-error-text>Something went wrong.</p>
+        <button type="button" class="btn btn--primary" data-action="retry">Try again</button>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/alerts.js' %}"></script>
+<script>Alerts.initAlerts();</script>
+{% endblock %}

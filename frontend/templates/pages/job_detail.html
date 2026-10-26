@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Job details | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/jobs.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-banner page-banner--slim">
+  <div class="container">
+    <a class="back-link" href="{% url 'web:job-list' %}">&larr; Back to all jobs</a>
+  </div>
+</section>
+
+<div class="container">
+  <div class="loading-block" id="job-loading">
+    <div class="skeleton skeleton--title"></div>
+    <div class="skeleton skeleton--line"></div>
+    <div class="skeleton skeleton--line"></div>
+    <div class="skeleton skeleton--block"></div>
+  </div>
+
+  <div class="empty-state empty-state--error" id="job-error" hidden>
+    <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></span>
+    <h3 data-error-title>This job is not available</h3>
+    <p data-error-text>It may have closed or been removed.</p>
+    <a class="btn btn--primary" href="{% url 'web:job-list' %}">Browse other jobs</a>
+  </div>
+
+  <div class="job-detail" id="job-detail" data-job-id="{{ job_id }}" hidden>
+    <article class="job-detail__main card">
+      <header class="job-detail__header">
+        <span class="avatar avatar--lg" data-field="avatar"></span>
+        <div>
+          <h1 class="job-detail__title" data-field="title"></h1>
+          <p class="job-detail__company" data-field="company"></p>
+          <div class="badge-row" data-field="badges"></div>
+        </div>
+      </header>
+
+      <div class="job-detail__actions">
+        <a class="btn btn--primary btn--lg" data-field="apply" target="_blank" rel="noopener noreferrer">
+          <span>Apply now</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-external-link"></use></svg>
+        </a>
+        <button type="button" class="btn btn--secondary btn--lg" data-action="save" aria-pressed="false">
+          <svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg>
+          <span data-save-label>Save</span>
+        </button>
+        <button type="button" class="btn btn--success btn--lg" data-action="track">
+          <svg class="icon" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+          <span>Track application</span>
+        </button>
+        <button type="button" class="btn btn--ghost btn--lg" data-action="share">
+          <svg class="icon" aria-hidden="true"><use href="#i-link"></use></svg>
+          <span>Copy link</span>
+        </button>
+      </div>
+
+      <section class="job-detail__section">
+        <h2>About the role</h2>
+        <div class="prose" data-field="description"></div>
+      </section>
+
+      <section class="job-detail__section" data-field-section="requirements">
+        <h2>Requirements</h2>
+        <div class="prose" data-field="requirements"></div>
+      </section>
+
+      <section class="job-detail__section" data-field-section="skills">
+        <h2>Skills</h2>
+        <div class="chip-row" data-field="skills"></div>
+      </section>
+    </article>
+
+    <aside class="job-detail__aside">
+      <div class="card overview">
+        <h2>Job overview</h2>
+        <dl class="overview__list" data-field="overview"></dl>
+      </div>
+
+      <div class="card source-card" data-field-section="source">
+        <h2>Listing source</h2>
+        <p data-field="source-name"></p>
+        <p class="source-card__verified" data-field="source-verified"></p>
+        <a class="btn btn--secondary btn--sm" data-field="source-link" target="_blank" rel="noopener noreferrer">View original listing</a>
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/jobs.js' %}"></script>
+<script>
+    Jobs.initDetail({ job_id: Number("{{ job_id|default:0 }}") });
+</script>
+{% endblock %}

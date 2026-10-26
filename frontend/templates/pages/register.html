@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Create your account | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <aside class="auth-visual auth-visual--green">
+    <div class="auth-visual__inner">
+      <h2>Your job search, organised</h2>
+      <p>Create a free account in under a minute.</p>
+      <ul class="auth-points">
+        <li><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg> Search verified jobs across Kenya</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg> Save jobs and come back to them</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-check-circle"></use></svg> Track every application to the offer</li>
+      </ul>
+    </div>
+  </aside>
+
+  <section class="auth-panel">
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p class="auth-card__sub">It is free and takes less than a minute.</p>
+
+      <form id="register-form" class="auth-form" novalidate>
+        <div class="form-alert" data-form-error hidden></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reg-first-name">First name <span class="form-optional">(optional)</span></label>
+            <input class="form-control" id="reg-first-name" name="first_name" type="text" autocomplete="given-name">
+            <p class="form-error" data-error-for="first_name"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-last-name">Last name <span class="form-optional">(optional)</span></label>
+            <input class="form-control" id="reg-last-name" name="last_name" type="text" autocomplete="family-name">
+            <p class="form-error" data-error-for="last_name"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-username">Username</label>
+          <input class="form-control" id="reg-username" name="username" type="text" autocomplete="username" required>
+          <p class="form-hint">Letters, numbers and @ . + - _ only.</p>
+          <p class="form-error" data-error-for="username"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email</label>
+          <input class="form-control" id="reg-email" name="email" type="email" autocomplete="email" required>
+          <p class="form-error" data-error-for="email"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <div class="input-group">
+            <input class="form-control" id="reg-password" name="password" type="password" autocomplete="new-password" required>
+            <button type="button" class="input-group__btn" data-toggle-password>Show</button>
+          </div>
+          <p class="form-hint">At least 8 characters, not too common, not only numbers.</p>
+          <p class="form-error" data-error-for="password"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password-confirm">Confirm password</label>
+          <input class="form-control" id="reg-password-confirm" name="password_confirm" type="password" autocomplete="new-password" required>
+          <p class="form-error" data-error-for="password_confirm"></p>
+        </div>
+
+        <button class="btn btn--primary btn--lg btn--block" type="submit">Create account</button>
+      </form>
+
+      <p class="auth-card__switch">Already have an account? <a href="{% url 'web:login' %}">Log in</a></p>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>Auth.initRegisterPage();</script>
+{% endblock %}

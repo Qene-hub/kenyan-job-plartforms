@@ -1,0 +1,41 @@
+{% url 'web:home' as url_home %}
+{% url 'web:job-list' as url_jobs %}
+{% url 'web:login' as url_login %}
+{% url 'web:register' as url_register %}
+{% url 'web:dashboard' as url_dashboard %}
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a class="brand brand--light" href="{{ url_home }}"><span class="brand__text">Kenya<span>Jobs</span></span></a>
+      <p>A free job board for Kenya. Search verified vacancies, save the ones you like and track every application in one place.</p>
+    </div>
+    <div class="site-footer__col">
+      <h3>Job seekers</h3>
+      <ul>
+        <li><a href="{{ url_jobs }}">Find jobs</a></li>
+        <li><a href="{{ url_jobs }}?job_type=internship">Internships</a></li>
+        <li><a href="{{ url_jobs }}?job_type=attachment">Attachments</a></li>
+        <li><a href="{{ url_jobs }}?work_mode=remote">Remote jobs</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h3>Your account</h3>
+      <ul>
+        <li data-show="guest"><a href="{{ url_login }}">Log in</a></li>
+        <li data-show="guest"><a href="{{ url_register }}">Create account</a></li>
+        <li data-show="user"><a href="{{ url_dashboard }}">Dashboard</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h3>Developers</h3>
+      <ul>
+        <li><a href="{% url 'swagger-ui' %}">API documentation</a></li>
+        <li><a href="{% url 'redoc' %}">API reference</a></li>
+        <li><a href="{% url 'health' %}">Service status</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>&copy; {% now "Y" %} Kenya Job Platform. All rights reserved.</p>
+  </div>
+</footer>

@@ -1,0 +1,129 @@
+.auth-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+.auth-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-8);
+  overflow: hidden;
+  background: var(--gradient-brand);
+  color: #fff;
+}
+
+.auth-visual::before,
+.auth-visual::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.auth-visual::before {
+  top: -100px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  background: #22d3ee;
+}
+
+.auth-visual::after {
+  bottom: -120px;
+  left: -90px;
+  width: 340px;
+  height: 340px;
+  background: #fbbf24;
+}
+
+.auth-visual--green {
+  background: linear-gradient(135deg, #059669 0%, #0ea5e9 55%, #4f46e5 100%);
+}
+
+.auth-visual__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+}
+
+.auth-visual h2 {
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.auth-visual p {
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.auth-points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.auth-points li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.16);
+  font-weight: 600;
+}
+
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-5);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+}
+
+.auth-card h1 {
+  font-size: var(--text-3xl);
+}
+
+.auth-card__sub {
+  margin-bottom: var(--space-6);
+  color: var(--color-muted);
+}
+
+.auth-card__switch {
+  margin: var(--space-5) 0 0;
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.auth-card__switch a {
+  font-weight: 700;
+}
+
+@media (max-width: 860px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-visual {
+    padding: var(--space-8) var(--space-5);
+  }
+
+  .auth-visual h2 {
+    font-size: var(--text-3xl);
+  }
+
+  .auth-points {
+    display: none;
+  }
+}

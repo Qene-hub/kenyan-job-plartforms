@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Find jobs in Kenya | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/jobs.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+  <div class="container">
+    <h1>Find your next job</h1>
+    <p>Browse verified opportunities across Kenya's 47 counties.</p>
+  </div>
+</section>
+
+<div class="container">
+  <form id="filters-form" class="jobs-layout" autocomplete="off">
+    <aside class="filters" id="filters-panel" aria-label="Filters">
+      <div class="filters__head">
+        <h2>Filters</h2>
+        <button type="button" class="link-btn" data-action="clear-filters">Clear all</button>
+      </div>
+
+      <div class="filters__group">
+        <label class="form-label" for="county-select">County</label>
+        <select class="form-control" id="county-select" name="county">
+          <option value="">All counties</option>
+        </select>
+      </div>
+
+      <fieldset class="filters__group">
+        <legend class="form-label">Job type</legend>
+        <div class="check-group" data-group="job_type"></div>
+      </fieldset>
+
+      <fieldset class="filters__group">
+        <legend class="form-label">Work mode</legend>
+        <div class="check-group" data-group="work_mode"></div>
+      </fieldset>
+
+      <fieldset class="filters__group">
+        <legend class="form-label">Experience level</legend>
+        <div class="check-group" data-group="experience_level"></div>
+      </fieldset>
+
+      <div class="filters__group">
+        <label class="form-label" for="min-salary">Minimum salary (KES)</label>
+        <input class="form-control" type="number" min="0" step="1000" id="min-salary" name="min_salary" placeholder="e.g. 50000" data-live-text>
+      </div>
+
+      <div class="filters__group">
+        <label class="form-label" for="posted-within">Date posted</label>
+        <select class="form-control" id="posted-within" name="posted_within">
+          <option value="">Any time</option>
+          <option value="1">Past 24 hours</option>
+          <option value="7">Past week</option>
+          <option value="30">Past month</option>
+        </select>
+      </div>
+    </aside>
+
+    <section class="results" aria-live="polite">
+      <div class="results__search">
+        <label class="results__field">
+          <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+          <span class="sr-only">Search jobs</span>
+          <input type="search" name="search" placeholder="Job title, skill or company" data-live-text>
+        </label>
+        <button class="btn btn--primary" type="submit">Search</button>
+        <button class="btn btn--secondary filters-toggle" type="button" data-filters-toggle>
+          <svg class="icon" aria-hidden="true"><use href="#i-filter"></use></svg> Filters
+        </button>
+      </div>
+
+      <div class="results__bar">
+        <p class="results__count" id="results-count">Loading jobs...</p>
+        <div class="results__sort">
+          <label class="sr-only" for="ordering">Sort by</label>
+          <select class="form-control form-control--sm" id="ordering" name="ordering">
+            <option value="-published_at">Newest first</option>
+            <option value="published_at">Oldest first</option>
+            <option value="-salary_max">Highest salary</option>
+            <option value="title">Title A to Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-cards" id="results"></div>
+
+      <div class="empty-state" id="results-empty" hidden>
+        <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></span>
+        <h3>No jobs match your search</h3>
+        <p>Try removing a filter or searching for something broader.</p>
+        <button type="button" class="btn btn--primary" data-action="clear-filters">Clear filters</button>
+      </div>
+
+      <div class="empty-state empty-state--error" id="results-error" hidden>
+        <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></span>
+        <h3>We could not load the jobs</h3>
+        <p data-error-text>Something went wrong.</p>
+        <button type="button" class="btn btn--primary" data-action="retry">Try again</button>
+      </div>
+
+      {% include "components/pagination.html" %}
+    </section>
+  </form>
+</div>
+
+{% include "components/job_card.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/jobs.js' %}"></script>
+<script>Jobs.initList();</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+{% url 'web:home' as url_home %}
+{% url 'web:job-list' as url_jobs %}
+{% url 'web:dashboard' as url_dashboard %}
+{% url 'web:saved-jobs' as url_saved %}
+{% url 'web:applications' as url_apps %}
+{% url 'web:alerts' as url_alerts %}
+{% url 'web:login' as url_login %}
+{% url 'web:register' as url_register %}
+<header class="site-header">
+  <nav class="navbar container" aria-label="Main navigation">
+    <a class="brand" href="{{ url_home }}">
+      <img src="{% static 'img/logo.svg' %}" alt="" width="36" height="36">
+      <span class="brand__text">Kenya<span>Jobs</span></span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-menu" id="nav-menu" data-nav-menu>
+      <ul class="nav-links">
+        <li><a class="nav-link {% if request.path == url_home %}is-active{% endif %}" href="{{ url_home }}">Home</a></li>
+        <li><a class="nav-link {% if url_jobs in request.path %}is-active{% endif %}" href="{{ url_jobs }}">Find jobs</a></li>
+        <li data-show="user"><a class="nav-link {% if request.path == url_dashboard %}is-active{% endif %}" href="{{ url_dashboard }}">Dashboard</a></li>
+        <li data-show="user"><a class="nav-link {% if request.path == url_saved %}is-active{% endif %}" href="{{ url_saved }}">Saved</a></li>
+        <li data-show="user"><a class="nav-link {% if request.path == url_apps %}is-active{% endif %}" href="{{ url_apps }}">Applications</a></li>
+        <li data-show="user"><a class="nav-link {% if request.path == url_alerts %}is-active{% endif %}" href="{{ url_alerts }}">Alerts</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="nav-actions__group" data-show="guest">
+          <a class="btn btn--ghost" href="{{ url_login }}">Log in</a>
+          <a class="btn btn--primary" href="{{ url_register }}">Sign up free</a>
+        </div>
+        <div class="nav-actions__group" data-show="user">
+          <span class="nav-user">
+            <span class="avatar avatar--sm avatar--0" data-user-initials>U</span>
+            <span class="nav-user__name" data-user-name>Account</span>
+          </span>
+          <button class="btn btn--secondary btn--sm" type="button" data-action="logout">Log out</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

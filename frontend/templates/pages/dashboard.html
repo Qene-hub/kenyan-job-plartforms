@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="dash-hero">
+  <div class="container dash-hero__inner">
+    <div>
+      <p class="dash-hero__eyebrow">Your dashboard</p>
+      <h1>Welcome back, <span data-user-firstname>there</span></h1>
+      <p>Here is where your job search stands today.</p>
+    </div>
+    <a class="btn btn--light btn--lg" href="{% url 'web:job-list' %}">Find more jobs</a>
+  </div>
+</section>
+
+<div class="container dash">
+  <div class="banner banner--warning" id="followup-banner" hidden>
+    <svg class="icon" aria-hidden="true"><use href="#i-bell"></use></svg>
+    <p><strong data-followup-count>0</strong> follow-up(s) due. <a href="{% url 'web:applications' %}">Review your applications</a></p>
+  </div>
+
+  <div class="banner banner--error" id="dashboard-error" hidden>
+    <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+    <p data-error-text>Something went wrong.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card stat-card--indigo">
+      <span class="stat-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"></use></svg></span>
+      <div><p class="stat-card__value" data-stat="total">0</p><p class="stat-card__label">Tracked</p></div>
+    </div>
+    <div class="stat-card stat-card--sky">
+      <span class="stat-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-file-text"></use></svg></span>
+      <div><p class="stat-card__value" data-stat="applied">0</p><p class="stat-card__label">Applied</p></div>
+    </div>
+    <div class="stat-card stat-card--amber">
+      <span class="stat-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-zap"></use></svg></span>
+      <div><p class="stat-card__value" data-stat="assessment">0</p><p class="stat-card__label">Assessment</p></div>
+    </div>
+    <div class="stat-card stat-card--violet">
+      <span class="stat-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"></use></svg></span>
+      <div><p class="stat-card__value" data-stat="interview">0</p><p class="stat-card__label">Interview</p></div>
+    </div>
+    <div class="stat-card stat-card--green">
+      <span class="stat-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-award"></use></svg></span>
+      <div><p class="stat-card__value" data-stat="offer">0</p><p class="stat-card__label">Offers</p></div>
+    </div>
+    <div class="stat-card stat-card--pink">
+      <span class="stat-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg></span>
+      <div><p class="stat-card__value" data-stat="saved_jobs">0</p><p class="stat-card__label">Saved jobs</p></div>
+    </div>
+  </div>
+
+  <div class="dash-grid">
+    <section class="card panel">
+      <header class="panel__head">
+        <h2>Recent applications</h2>
+        <a href="{% url 'web:applications' %}">View all</a>
+      </header>
+      <ul class="list" id="recent-applications"><li class="list-empty">Loading...</li></ul>
+    </section>
+
+    <section class="card panel">
+      <header class="panel__head">
+        <h2>Saved jobs</h2>
+        <a href="{% url 'web:saved-jobs' %}">View all</a>
+      </header>
+      <ul class="list" id="recent-saved"><li class="list-empty">Loading...</li></ul>
+    </section>
+  </div>
+
+  <div class="quick-links">
+    <a class="quick-link quick-link--indigo" href="{% url 'web:applications' %}">
+      <svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg>
+      <span>Manage applications</span>
+    </a>
+    <a class="quick-link quick-link--pink" href="{% url 'web:saved-jobs' %}">
+      <svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg>
+      <span>Saved jobs</span>
+    </a>
+    <a class="quick-link quick-link--green" href="{% url 'web:alerts' %}">
+      <svg class="icon" aria-hidden="true"><use href="#i-bell"></use></svg>
+      <span>Job alerts</span>
+    </a>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/tracker.js' %}"></script>
+<script>Tracker.initDashboard();</script>
+{% endblock %}

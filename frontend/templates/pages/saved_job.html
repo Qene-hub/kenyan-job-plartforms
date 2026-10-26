@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Saved jobs | Kenya Job Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-banner">
+  <div class="container">
+    <h1>Saved jobs</h1>
+    <p>The jobs you bookmarked. Start tracking one when you apply.</p>
+  </div>
+</section>
+
+<div class="container dash">
+  <div class="grid-cards" id="saved-grid"></div>
+
+  <div class="empty-state" id="saved-empty" hidden>
+    <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg></span>
+    <h3>No saved jobs yet</h3>
+    <p>Tap the heart on any job to keep it here.</p>
+    <a class="btn btn--primary" href="{% url 'web:job-list' %}">Find jobs</a>
+  </div>
+
+  <div class="empty-state empty-state--error" id="saved-error" hidden>
+    <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></span>
+    <h3>We could not load your saved jobs</h3>
+    <p data-error-text>Something went wrong.</p>
+    <button type="button" class="btn btn--primary" data-action="retry">Try again</button>
+  </div>
+
+  {% include "components/pagination.html" %}
+</div>
+
+{% include "components/job_card.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/jobs.js' %}"></script>
+<script src="{% static 'js/tracker.js' %}"></script>
+<script>Tracker.initSaved();</script>
+{% endblock %}

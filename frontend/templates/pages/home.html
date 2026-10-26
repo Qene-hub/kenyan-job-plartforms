@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Kenya Job Platform | Find jobs, internships and attachments in Kenya{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+{% endblock %}
+
+{% block content %}
+{% url 'web:job-list' as url_jobs %}
+
+<section class="hero">
+  <span class="hero__shape hero__shape--one" aria-hidden="true"></span>
+  <span class="hero__shape hero__shape--two" aria-hidden="true"></span>
+  <span class="hero__shape hero__shape--three" aria-hidden="true"></span>
+  <div class="container hero__inner">
+    <p class="hero__eyebrow"><span class="hero__dot"></span> Built for Kenyan job seekers</p>
+    <h1 class="hero__title">Find your next <span class="hero__highlight">opportunity</span> in Kenya</h1>
+    <p class="hero__subtitle">Search verified jobs, internships and attachments. Save the ones you like and track every application in one place.</p>
+
+    <form class="search-box" action="{{ url_jobs }}" method="get" role="search">
+      <label class="search-box__field">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+        <span class="sr-only">Job title, skill or company</span>
+        <input type="search" name="search" placeholder="Job title, skill or company" autocomplete="off">
+      </label>
+      <label class="search-box__field search-box__field--county">
+        <svg class="icon" aria-hidden="true"><use href="#i-map-pin"></use></svg>
+        <span class="sr-only">County</span>
+        <select name="county" id="hero-county"><option value="">All of Kenya</option></select>
+      </label>
+      <button class="btn btn--primary btn--lg" type="submit">Search jobs</button>
+    </form>
+
+    <p class="hero__tags">
+      <span>Popular:</span>
+      <a href="{{ url_jobs }}?search=Python">Python</a>
+      <a href="{{ url_jobs }}?search=Accountant">Accountant</a>
+      <a href="{{ url_jobs }}?search=Marketing">Marketing</a>
+      <a href="{{ url_jobs }}?search=Nurse">Nurse</a>
+      <a href="{{ url_jobs }}?search=Customer+care">Customer care</a>
+    </p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats-strip" aria-label="Platform statistics">
+    <div class="stats-strip__item stats-strip__item--indigo">
+      <span class="stats-strip__value" data-stat="jobs">0</span>
+      <span class="stats-strip__label">Open jobs</span>
+    </div>
+    <div class="stats-strip__item stats-strip__item--pink">
+      <span class="stats-strip__value" data-stat="companies">0</span>
+      <span class="stats-strip__label">Verified employers</span>
+    </div>
+    <div class="stats-strip__item stats-strip__item--green">
+      <span class="stats-strip__value">47</span>
+      <span class="stats-strip__label">Counties you can search</span>
+    </div>
+    <div class="stats-strip__item stats-strip__item--amber">
+      <span class="stats-strip__value">Free</span>
+      <span class="stats-strip__label">For job seekers</span>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section__header">
+      <h2 class="section__title">Browse by job type</h2>
+      <p class="section__subtitle">Whatever stage you are at, start with the kind of work you want.</p>
+    </div>
+    <div class="type-cards">
+      <a class="type-card type-card--indigo" href="{{ url_jobs }}?job_type=full_time">
+        <span class="type-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"></use></svg></span>
+        <span class="type-card__label">Full-time</span>
+        <span class="type-card__hint">Permanent roles</span>
+      </a>
+      <a class="type-card type-card--pink" href="{{ url_jobs }}?job_type=internship">
+        <span class="type-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-award"></use></svg></span>
+        <span class="type-card__label">Internships</span>
+        <span class="type-card__hint">Start your career</span>
+      </a>
+      <a class="type-card type-card--violet" href="{{ url_jobs }}?job_type=attachment">
+        <span class="type-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"></use></svg></span>
+        <span class="type-card__label">Attachments</span>
+        <span class="type-card__hint">For students</span>
+      </a>
+      <a class="type-card type-card--green" href="{{ url_jobs }}?work_mode=remote">
+        <span class="type-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-laptop"></use></svg></span>
+        <span class="type-card__label">Remote</span>
+        <span class="type-card__hint">Work from anywhere</span>
+      </a>
+      <a class="type-card type-card--sky" href="{{ url_jobs }}?job_type=part_time">
+        <span class="type-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg></span>
+        <span class="type-card__label">Part-time</span>
+        <span class="type-card__hint">Flexible hours</span>
+      </a>
+      <a class="type-card type-card--amber" href="{{ url_jobs }}?job_type=contract">
+        <span class="type-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-file-text"></use></svg></span>
+        <span class="type-card__label">Contract</span>
+        <span class="type-card__hint">Fixed-term work</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="section__header section__header--row">
+      <div>
+        <h2 class="section__title">Latest jobs</h2>
+        <p class="section__subtitle">Freshly published, verified vacancies.</p>
+      </div>
+      <a class="btn btn--secondary" href="{{ url_jobs }}">View all jobs
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+      </a>
+    </div>
+    <div class="grid-cards" id="latest-jobs" aria-live="polite"></div>
+    <div class="empty-state" id="latest-empty" hidden>
+      <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"></use></svg></span>
+      <h3>No jobs published yet</h3>
+      <p>New vacancies are added regularly. Check back soon.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__header">
+      <h2 class="section__title">How it works</h2>
+      <p class="section__subtitle">From searching to signing the offer, in three simple steps.</p>
+    </div>
+    <div class="steps">
+      <div class="step step--indigo">
+        <span class="step__number">1</span>
+        <h3>Search</h3>
+        <p>Filter by county, job type, experience level and salary to find roles that fit you.</p>
+      </div>
+      <div class="step step--pink">
+        <span class="step__number">2</span>
+        <h3>Save</h3>
+        <p>Create a free account and bookmark the jobs you want to come back to.</p>
+      </div>
+      <div class="step step--green">
+        <span class="step__number">3</span>
+        <h3>Track</h3>
+        <p>Move each application from Applied to Interview to Offer, with notes and reminders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="section__header">
+      <h2 class="section__title">Everything for your job search</h2>
+      <p class="section__subtitle">One place to find work and stay organised.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature feature--indigo">
+        <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg></span>
+        <h3>Verified listings</h3>
+        <p>Only vacancies from verified employers are shown, and expired jobs disappear automatically.</p>
+      </div>
+      <div class="feature feature--pink">
+        <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+        <h3>Application tracker</h3>
+        <p>See where every application stands, and keep private notes and follow-up dates.</p>
+      </div>
+      <div class="feature feature--green">
+        <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#i-bell"></use></svg></span>
+        <h3>Job alerts</h3>
+        <p>Save a search and choose how often you want to hear about new matching jobs.</p>
+      </div>
+      <div class="feature feature--amber">
+        <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#i-globe"></use></svg></span>
+        <h3>All 47 counties</h3>
+        <p>Search by county, from Nairobi and Mombasa to Turkana and Lamu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__header">
+      <h2 class="section__title">Popular counties</h2>
+    </div>
+    <div class="county-chips">
+      <a class="chip" href="{{ url_jobs }}?county=nairobi">Nairobi</a>
+      <a class="chip" href="{{ url_jobs }}?county=mombasa">Mombasa</a>
+      <a class="chip" href="{{ url_jobs }}?county=kisumu">Kisumu</a>
+      <a class="chip" href="{{ url_jobs }}?county=nakuru">Nakuru</a>
+      <a class="chip" href="{{ url_jobs }}?county=kiambu">Kiambu</a>
+      <a class="chip" href="{{ url_jobs }}?county=uasin-gishu">Uasin Gishu</a>
+      <a class="chip" href="{{ url_jobs }}?county=machakos">Machakos</a>
+      <a class="chip" href="{{ url_jobs }}?county=nyeri">Nyeri</a>
+      <a class="chip" href="{{ url_jobs }}?county=kakamega">Kakamega</a>
+      <a class="chip" href="{{ url_jobs }}?county=meru">Meru</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--flush" data-show="guest">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>Ready to land your next role?</h2>
+        <p>Create a free account to save jobs, track applications and set up alerts.</p>
+      </div>
+      <a class="btn btn--light btn--lg" href="{% url 'web:register' %}">Create free account</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--flush">
+  <div class="container">
+    <div class="api-band">
+      <span class="api-band__icon"><svg class="icon" aria-hidden="true"><use href="#i-code"></use></svg></span>
+      <div>
+        <h3>Building something?</h3>
+        <p>Our public job and company data is available through a free JSON API with interactive documentation.</p>
+      </div>
+      <a class="btn btn--secondary" href="{% url 'swagger-ui' %}">Open API docs</a>
+    </div>
+  </div>
+</section>
+
+{% include "components/job_card.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/jobs.js' %}"></script>
+<script>Jobs.initHome();</script>
+{% endblock %}

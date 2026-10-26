@@ -1,0 +1,27 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Something went wrong | Kenya Job Platform</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}">
+</head>
+<body>
+  <main>
+    <section class="error-page">
+      <div class="container">
+        <p class="error-page__code">500</p>
+        <h1>Something went wrong</h1>
+        <p>We hit a problem on our side. Please try again in a few moments.</p>
+        <div class="error-page__actions">
+          <a class="btn btn--primary btn--lg" href="/">Back to home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

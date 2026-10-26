@@ -1,0 +1,24 @@
+<template id="job-card-template">
+  <article class="job-card">
+    <div class="job-card__top">
+      <a class="avatar" data-field="avatar" href="#" aria-hidden="true" tabindex="-1"></a>
+      <div class="job-card__heading">
+        <h3 class="job-card__title"><a data-field="title" href="#"></a></h3>
+        <p class="job-card__company" data-field="company"></p>
+      </div>
+      <button type="button" class="icon-btn save-btn" data-action="save" aria-pressed="false" aria-label="Save job">
+        <svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg>
+      </button>
+    </div>
+    <div class="job-card__badges" data-field="badges"></div>
+    <ul class="job-card__meta">
+      <li><svg class="icon" aria-hidden="true"><use href="#i-map-pin"></use></svg><span data-field="location"></span></li>
+      <li><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg><span data-field="posted"></span></li>
+    </ul>
+    <div class="job-card__skills" data-field="skills"></div>
+    <div class="job-card__footer">
+      <span class="job-card__salary" data-field="salary"></span>
+      <span class="job-card__deadline" data-field="deadline"></span>
+    </div>
+  </article>
+</template>
